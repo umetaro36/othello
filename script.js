@@ -1,30 +1,16 @@
-/*****************************************
- * 定数
- *****************************************/
-// マスの状態
+
 SQUARE_STATUS_IS_OWNED = "01"; // 自分が所有している
 SQUARE_STATUS_IS_OTHER = "02"; // 相手が所有している
 SQUARE_STATUS_NOT_SELECTED = "09"; // 選択されていない
 
-/*****************************************
- * アプリケーション設定
- *****************************************/
-// トースターのオプション設定
 toastr.options = {
     tapToDismiss: false,
     timeOut: 0,
     extendedTimeOut: 0,
 };
 
-/*****************************************
- * 変数
- *****************************************/
-// ターンを示す変数
 let isOddTurn = true;
 
-/*****************************************
- * イベント
- *****************************************/
 $(function () {
     // マス目にイベントを設定する
     $(".square").click(clickSquareEvent);
@@ -36,9 +22,6 @@ $(function () {
     initializeEvent();
 });
 
-/**
- * マス目クリックイベント
- */
 function clickSquareEvent() {
     // クリックされたマス目のオブジェクトを取得する
     let square = $(this);
@@ -84,9 +67,6 @@ function clickSquareEvent() {
     toastr.info(getTurnString() + "の番です。");
 }
 
-/**
- * 盤面初期化イベント
- */
 function initializeEvent() {
     // ターン表示を削除する
     toastr.remove();
@@ -110,12 +90,6 @@ function initializeEvent() {
     toastr.info(getTurnString() + "の番です。");
 }
 
-/*****************************************
- * 内部関数
- *****************************************/
-/**
- * マス目の所有者を変更する
- */
 function changeOwner(square) {
     // マス目にピースを置く
     putPiece(square, getTurnString());
@@ -127,16 +101,10 @@ function changeOwner(square) {
     changeTurn();
 }
 
-/**
- * マス目にピースを置く
- */
 function putPiece(targetSquare, owner) {
     targetSquare.text("●").attr("data-owner", owner).addClass("selected");
 }
 
-/**
- * ターンを示す文字列を取得する
- */
 function getTurnString() {
     if (isOddTurn) {
         return "black";
@@ -144,9 +112,6 @@ function getTurnString() {
     return "white";
 }
 
-/**
- * ターンを変更する
- */
 function changeTurn() {
     // ターンを変更する
     isOddTurn = !isOddTurn;
@@ -163,16 +128,10 @@ function changeTurn() {
     }
 }
 
-/**
- * 指定位置のマス目オブジェクトを取得する
- */
 function getTargetSquare(row, col) {
     return $("[data-row=" + row + "][data-col=" + col + "]");
 }
 
-/**
- * 指定されたマス目が選択できるか判定する
- */
 function canSelect(square) {
     // 既にピースが設定されている場合は選択不可
     if (square.hasClass("selected")) {
@@ -210,9 +169,6 @@ function canSelect(square) {
     return false;
 }
 
-/**
- * 所有者を変更する
- */
 function changeOwnerOpposite(square) {
     // クリックされたマス目の位置を取得する
     let row = square.data("row");
@@ -229,9 +185,6 @@ function changeOwnerOpposite(square) {
     changeOwnerOppositeLowerRight(row, col);
 }
 
-/**
- * 所有者を変更する(上)
- */
 function changeOwnerOppositeUpper(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeUpper(row, col);
@@ -247,9 +200,6 @@ function changeOwnerOppositeUpper(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(上)
- */
 function getPosOppositeUpper(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (row == 0) {
@@ -284,9 +234,7 @@ function getPosOppositeUpper(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(下)
- */
+
 function changeOwnerOppositeLower(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeLower(row, col);
@@ -302,9 +250,6 @@ function changeOwnerOppositeLower(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(下)
- */
 function getPosOppositeLower(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (row == 7) {
@@ -339,9 +284,6 @@ function getPosOppositeLower(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(左)
- */
 function changeOwnerOppositeLeft(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeLeft(row, col);
@@ -357,9 +299,6 @@ function changeOwnerOppositeLeft(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(左)
- */
 function getPosOppositeLeft(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (col == 0) {
@@ -394,9 +333,6 @@ function getPosOppositeLeft(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(右)
- */
 function changeOwnerOppositeRight(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeRight(row, col);
@@ -412,9 +348,6 @@ function changeOwnerOppositeRight(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(右)
- */
 function getPosOppositeRight(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (col == 7) {
@@ -449,9 +382,6 @@ function getPosOppositeRight(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(左上)
- */
 function changeOwnerOppositeUpperLeft(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeUpperLeft(row, col);
@@ -470,9 +400,6 @@ function changeOwnerOppositeUpperLeft(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(左上)
- */
 function getPosOppositeUpperLeft(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (row == 0 || col == 0) {
@@ -511,9 +438,6 @@ function getPosOppositeUpperLeft(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(右上)
- */
 function changeOwnerOppositeUpperRight(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeUpperRight(row, col);
@@ -532,9 +456,6 @@ function changeOwnerOppositeUpperRight(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(右上)
- */
 function getPosOppositeUpperRight(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (row == 0 || col == 7) {
@@ -573,9 +494,6 @@ function getPosOppositeUpperRight(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(左下)
- */
 function changeOwnerOppositeLowerLeft(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeLowerLeft(row, col);
@@ -594,9 +512,6 @@ function changeOwnerOppositeLowerLeft(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(左下)
- */
 function getPosOppositeLowerLeft(row, col) {
     // 調査対象が最端の場合は終了する
     if (row == 7 || col == 0) {
@@ -635,9 +550,6 @@ function getPosOppositeLowerLeft(row, col) {
     return null;
 }
 
-/**
- * 所有者を変更する(右下)
- */
 function changeOwnerOppositeLowerRight(row, col) {
     // 対向先を取得する
     let endPos = getPosOppositeLowerRight(row, col);
@@ -656,9 +568,6 @@ function changeOwnerOppositeLowerRight(row, col) {
     }
 }
 
-/**
- * 対向の所有マスの位置を取得する(右下)
- */
 function getPosOppositeLowerRight(row, col) {
     // 基準マスが最端の場合は対向先が存在しない
     if (row == 7 || col == 7) {
@@ -697,9 +606,6 @@ function getPosOppositeLowerRight(row, col) {
     return null;
 }
 
-/**
- * 調査対象のマス目の状態を取得する
- */
 function getSquareStatus(row, col) {
     // マスを取得する
     let targetSquare = getTargetSquare(row, col);
@@ -718,9 +624,6 @@ function getSquareStatus(row, col) {
     return SQUARE_STATUS_IS_OTHER;
 }
 
-/**
- * ゲーム終了を判定する
- */
 function isGameEnd() {
     if ($(".square.selected").length == 64) {
         return true;
@@ -728,9 +631,6 @@ function isGameEnd() {
     return false;
 }
 
-/**
- * ゲーム終了メッセージを表示する
- */
 function toastEndMessage(message) {
     let countBlack = $("[data-owner=black]").length;
     let countWhite = $("[data-owner=white]").length;
@@ -748,9 +648,7 @@ function toastEndMessage(message) {
     }
 }
 
-/**
- * 番手がパスかどうかを判定する
- */
+// パスかどうかを判定する
 function isPass() {
     if ($(".square.can-select").length == 0) {
         return true;
