@@ -1,0 +1,47 @@
+body {
+    background: url(https://github.com/oasys-tech/Reversi-4/raw/main/background.jpg);
+}
+
+.container {
+    font-size: 0;
+}
+
+#title {
+    text-align: center;
+    color: antiquewhite;
+}
+
+#board {
+    margin: 5rem auto;
+    width: 40rem;
+    height: 40rem;
+    background-color: black;
+    outline: 1.5rem solid;
+    outline-color: black;
+}
+
+.square {
+    width: 5rem;
+    height: 5rem;
+    background-color: green;
+    box-shadow: none !important;
+    font-size: 3.0rem;
+}
+
+.square[data-owner="black"]{
+    color: black;
+}
+
+.square[data-owner="white"]{
+    color: white;
+}
+
+.cant-select {
+    background-color: green !important;
+}
+
+#controller {
+    position:fixed;
+    top: 1rem;
+    left: 1rem;
+}
